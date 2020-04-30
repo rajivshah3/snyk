@@ -7,14 +7,16 @@ import { InvalidRemoteUrlError } from '../errors/invalid-remote-url-error';
 const TARGET_BUILDERS = [containerTargetBuilder, gitTargetBuilder];
 interface Options {
   'remote-repo-url'?: string;
+  docker?: boolean; // docker is coming from Options/TestOptions
+  isDocker?: boolean; // isDocker coming from MonitorMeta
 }
-
 export async function getInfo(
   packageInfo: DepTree,
   options: Options,
 ): Promise<GitTarget | ContainerTarget | null> {
+  const isFromContainer = options.docker || options.isDocker || false;
   for (const builder of TARGET_BUILDERS) {
-    const target = await builder.getInfo(packageInfo);
+    const target = await builder.getInfo(packageInfo, isFromContainer);
 
     if (target) {
       const remoteUrl = options['remote-repo-url'];

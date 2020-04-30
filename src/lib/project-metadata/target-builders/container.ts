@@ -3,9 +3,10 @@ import { ContainerTarget } from '../types';
 
 export async function getInfo(
   packageInfo: DepTree,
+  isFromContainer: boolean,
 ): Promise<ContainerTarget | null> {
   // safety check
-  if (!packageInfo.docker) {
+  if (!isFromContainer) {
     return null;
   }
 
