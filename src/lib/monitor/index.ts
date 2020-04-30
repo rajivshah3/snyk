@@ -176,7 +176,7 @@ export async function monitor(
           // because we want to send it only for specific package-managers
           target,
           // WARNING: be careful changing this as it affects project uniqueness
-          targetFile: pluginMeta.targetFile,
+          targetFile: scannedProject.targetFile || pluginMeta.targetFile,
           targetFileRelativePath,
         } as MonitorBody,
         gzip: true,
@@ -291,7 +291,7 @@ export async function monitorGraph(
           // we take the targetFile from the plugin,
           // because we want to send it only for specific package-managers
           target,
-          targetFile: pluginMeta.targetFile,
+          targetFile: scannedProject.targetFile || pluginMeta.targetFile,
           targetFileRelativePath,
         } as MonitorBody,
         gzip: true,
